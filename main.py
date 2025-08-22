@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from fastapi.config.database import get_db
-from fastapi.routers import categories, blocks
+from api import FastAPI
+from api.config.database import get_db
+from api.routers import categories, blocks
 
 app = FastAPI()
 
