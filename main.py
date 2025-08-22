@@ -9,6 +9,8 @@ conn = sqlite3.connect("mydb.db")
 conn.execute("CREATE TABLE IF NOT EXISTS blocks (id INTEGER PRIMARY KEY, title TEXT, content TEXT)")
 conn.commit()
 conn.close()
+conn = sqlite3.connect("mydb.db")
+cursor = conn.cursor()
 
 # ---- Veri modeli ----
 class Block(BaseModel):
@@ -20,8 +22,6 @@ class Block(BaseModel):
 # 1) GET - Tüm blokları getir
 @app.get("/blocks")
 def get_blocks():
-    conn = sqlite3.connect("mydb.db")
-    cursor = conn.cursor()
     cursor.execute("SELECT id, title, content FROM blocks")
     rows = cursor.fetchall()
     conn.close()
@@ -30,8 +30,6 @@ def get_blocks():
 # 2) POST - Yeni blok ekle
 @app.post("/blocks")
 def add_block(block: Block):
-    conn = sqlite3.connect("mydb.db")
-    cursor = conn.cursor()
     cursor.execute("INSERT INTO blocks (title, content) VALUES (?, ?)", (block.title, block.content))
     conn.commit()
     new_id = cursor.lastrowid
@@ -41,8 +39,6 @@ def add_block(block: Block):
 # 3) PUT - Var olan bloğu güncelle
 @app.put("/blocks/{block_id}")
 def update_block(block_id: int, block: Block):
-    conn = sqlite3.connect("mydb.db")
-    cursor = conn.cursor()
     cursor.execute("UPDATE blocks SET title = ?, content = ? WHERE id = ?", (block.title, block.content, block_id))
     conn.commit()
     conn.close()
@@ -51,8 +47,6 @@ def update_block(block_id: int, block: Block):
 # 4) DELETE - Bloğu sil
 @app.delete("/blocks/{block_id}")
 def delete_block(block_id: int):
-    conn = sqlite3.connect("mydb.db")
-    cursor = conn.cursor()
     cursor.execute("DELETE FROM blocks WHERE id = ?", (block_id,))
     conn.commit()
     conn.close()
