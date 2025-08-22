@@ -1,4 +1,4 @@
-from app import FastAPI
+from fastapi import FastAPI
 from app.config.database import get_db
 from app.routers import categories, blocks
 
