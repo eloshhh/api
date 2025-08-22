@@ -1,4 +1,4 @@
-from app import APIRouter
+from api import APIRouter
 from app.models.categories import Category
 from app.services import categories as category_service
 
