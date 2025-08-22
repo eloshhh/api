@@ -1,4 +1,4 @@
-from app import APIRouter
+from api import APIRouter
 from app.models.blocks import Block
 from app.services import blocks as block_service
 
