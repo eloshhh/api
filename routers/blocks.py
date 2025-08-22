@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from api.models.blocks import Block
-from api.services import blocks as block_service
+from fastapi.models.blocks import Block
+from fastapi.services import blocks as block_service
 
 router = APIRouter()
 
