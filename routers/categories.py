@@ -1,6 +1,6 @@
-from fastapi import APIRouter
-from fastapi.models.categories import Category
-from fastapi.services import categories as category_service
+from api import APIRouter
+from api.models.categories import Category
+from api.services import categories as category_service
 
 router = APIRouter()
 
