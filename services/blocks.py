@@ -1,5 +1,5 @@
-from api.config.database import get_db
-from api.config.logger import logger
+from app.config.database import get_db
+from app.config.logger import logger
 
 def get_all_blocks():
     with get_db() as conn:
