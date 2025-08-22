@@ -1,12 +1,23 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
+import logging
 
 app = FastAPI()
 
+# ---- Logger ayarı ----
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger("myapp")
+
 # ---- Veri modeli ----
+class Category(BaseModel):
+    name: str
+    
 class Block(BaseModel):
-    category: str   # önce category
+    category_id: int   # önce category
     title: str
     content: str
 
@@ -18,12 +29,22 @@ def get_db():
 
 # ---- Tabloyu oluştur ----
 with get_db() as conn:
+    # Category tablosu
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE NOT NULL
+        )
+    """)
+
+    # Blocks tablosu (kategoriye bağlı)
     conn.execute("""
         CREATE TABLE IF NOT EXISTS blocks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            category TEXT,
+            category_id INTEGER,
             title TEXT,
-            content TEXT
+            content TEXT,
+            FOREIGN KEY (category_id) REFERENCES categories (id)
         )
     """)
     conn.commit()
