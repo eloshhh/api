@@ -1,6 +1,6 @@
 from api import APIRouter
-from api.models.blocks import Block
-from api.services import blocks as block_service
+from app.models.blocks import Block
+from app.services import blocks as block_service
 
 router = APIRouter()
 
