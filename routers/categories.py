@@ -1,6 +1,6 @@
 from api import APIRouter
-from api.models.categories import Category
-from api.services import categories as category_service
+from app.models.categories import Category
+from app.services import categories as category_service
 
 router = APIRouter()
 
